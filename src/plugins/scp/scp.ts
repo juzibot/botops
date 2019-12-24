@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import cheerio from 'cheerio'
+import { parseContent } from './parse'
 
 export async function onSCP (text: string): Promise<null|string> {
   const m = text.match(/SCP(\d+)/i)
@@ -38,11 +38,10 @@ async function getSCP (codeStr: string): Promise<string> {
   const url = `http://scp-wiki-cn.wikidot.com/scp-${codeStr}`
   let obj = await fetch(url)
   let content = await obj.text()
-  const $ = cheerio.load(content)
-  let data = $('div#page-content p').text()
+  let data = parseContent(content)
   if (data.length > 350) {
-    data = data.substr(0, 350)
+    data = data.substr(0, 350) + '...'
   }
-  data = data + '\n更多： ' + url
+  data = data + `\n更多： ${url}`
   return data
 }
