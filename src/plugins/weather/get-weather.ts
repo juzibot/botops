@@ -1,7 +1,9 @@
 
+import { Wechaty } from 'wechaty'
 import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 import { getCode } from './read-city'
+import cron from 'node-cron'
 
 const HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -40,6 +42,57 @@ export async function onWeather (text: string): Promise<null|string> {
     }
   }
   return null
+}
+
+// 定时任务测试
+// # ┌────────────── second (optional)
+// # │ ┌──────────── minute
+// # │ │ ┌────────── hour
+// # │ │ │ ┌──────── day of month
+// # │ │ │ │ ┌────── month
+// # │ │ │ │ │ ┌──── day of week
+// # │ │ │ │ │ │
+// # │ │ │ │ │ │
+// # * * * * * *
+export const CRON_CONFIG: string[][] = [
+  [
+    '0 0 9 * * *',
+    'botops1',
+    '北京市海淀区',
+  ],
+  [
+    '0 0 9 * * *',
+    'botops1',
+    '上海市市辖区',
+  ],
+  [
+    '0 0 9 * * *',
+    'botops2',
+    '北京市海淀区',
+  ],
+  [
+    '0 0 9 * * *',
+    'botops2',
+    '河北省保定市涿州市',
+  ],
+]
+
+export async function cronWeather (bot: Wechaty) {
+  for (const cronConfig of CRON_CONFIG) {
+    cron.schedule(cronConfig[0], async () => {
+      const key = cronConfig[1]
+      const city = cronConfig[2]
+      const room = await bot.Room.find({ topic: key })
+      if (room) {
+        await room.say(await getWeather(city))
+      } else {
+        const contact = await bot.Contact.find({ name: key })
+        if (contact) {
+          await contact.say(await getWeather(city))
+        }
+      }
+    })
+  }
 }
 
 // setTimeout(async () => {

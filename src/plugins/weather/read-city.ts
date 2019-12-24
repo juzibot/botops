@@ -7,11 +7,14 @@ const csvPath = path.join(__dirname, 'cityidloc-20180625.csv')
 const results: any[] = []
 
 fs.createReadStream(csvPath)
-  .pipe(csv(['ID', 'City', 'Area', 'N', 'N2', 'N3', 'Code']))
+  .pipe(csv(['ID', 'City', 'Area', 'SubArea', 'N2', 'N3', 'Code']))
   .on('data', (data: any) => results.push(data))
 
 export async function getCode (city: string): Promise<string | null> {
   for (const row of results) {
+    if ((row['City'] + row['Area'] + row['SubArea']).includes(city)) {
+      return row['Code']
+    }
     if ((row['City'] + row['Area']).includes(city)) {
       return row['Code']
     }
@@ -19,6 +22,9 @@ export async function getCode (city: string): Promise<string | null> {
       return row['Code']
     }
     if (row['Area'].includes(city)) {
+      return row['Code']
+    }
+    if (row['SubArea'].includes(city)) {
       return row['Code']
     }
   }
