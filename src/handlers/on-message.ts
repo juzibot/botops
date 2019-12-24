@@ -4,12 +4,19 @@ import {
   Wechaty,
 } from 'wechaty'
 
-import { onSCP, onRandomSCP, onZhiHuFollower, talkTBP } from '../plugins'
+import {
+  onSCP,
+  onRandomSCP,
+  onZhiHuFollower,
+  talkTBP,
+  onWeather,
+} from '../plugins'
 
 const FUNCTIONS = [
   onSCP,
   onRandomSCP,
   onZhiHuFollower,
+  onWeather,
 ]
 
 async function isRoomMentionMe (message: Message) : Promise<string|null> {

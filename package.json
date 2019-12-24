@@ -35,6 +35,7 @@
     "@types/read-pkg-up": "^6.0.0",
     "brolog": "^1.6.5",
     "cheerio": "^1.0.0-rc.3",
+    "csv-parser": "^2.3.2",
     "dom": "0.0.3",
     "finis": "^0.4.3",
     "node-fetch": "^2.6.0",
