@@ -39,5 +39,10 @@ async function getSCP (codeStr: string): Promise<string> {
   let obj = await fetch(url)
   let content = await obj.text()
   const $ = cheerio.load(content)
-  return $('div#page-content p').text()
+  let data = $('div#page-content p').text()
+  if (data.length > 350) {
+    data = data.substr(0, 350)
+  }
+  data = data + '\n更多： ' + url
+  return data
 }
