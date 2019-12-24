@@ -40,7 +40,7 @@ export default async function onMessage (
 
   const mentionMe = await isRoomMentionMe(message)
 
-  if ((room && mentionMe) || contact) {
+  if ((room && mentionMe) || (!room && contact)) {
     for (const func of FUNCTIONS) {
       const reply = await func(text)
       if (reply) {
