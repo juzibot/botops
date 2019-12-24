@@ -12,21 +12,16 @@ const FUNCTIONS = [
   onZhiHuFollower,
 ]
 
-async function isRoomMentionMe (message: Message) {
+async function isRoomMentionMe (message: Message) : Promise<string|null> {
   const room = message.room()
   const text = message.text()
   if (room && text.match(/^pda\s/i)) {
-    return true
+    return text.substr(0, 4)
   }
-  const mentions = await message.mentionList()
-  if (room && mentions) {
-    for (const mention of mentions) {
-      if (mention.id === message.wechaty.self().id) {
-        return true
-      }
-    }
+  if (room && await message.mentionSelf()) {
+    return message.mentionText()
   }
-  return false
+  return null
 }
 
 export default async function onMessage (
@@ -35,10 +30,17 @@ export default async function onMessage (
 ): Promise<void> {
   log.info('on-message', 'onMessage(%s)', message)
   const room = message.room()
-  const text = message.text()
+  let text = message.text()
   const contact = message.from()
 
   const mentionMe = await isRoomMentionMe(message)
+  log.info('onMessage', 'mention %s', mentionMe)
+  if (mentionMe) {
+    text = text.replace(mentionMe, '').trim()
+    log.info('onMessage', 'mentioned text %s', text)
+  } else {
+    log.info('onMessage', 'non-mentioned text %s', text)
+  }
 
   if ((room && mentionMe) || (!room && contact)) {
     for (const func of FUNCTIONS) {
