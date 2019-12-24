@@ -4,7 +4,15 @@ import cheerio from 'cheerio'
 
 const url = 'https://www.zhihu.com/people/qhduan/activities'
 
-export async function getZhiHuFollower (): Promise<string> {
+export async function onZhiHuFollower (text: string): Promise<string|null> {
+  if ((text.includes('知乎') || text.includes('知呼')) && text.includes('粉丝')) {
+    const ret = await getZhiHuFollower()
+    await ret
+  }
+  return null
+}
+
+async function getZhiHuFollower (): Promise<string> {
   let obj = await fetch(url)
   let content = await obj.text()
   const $ = cheerio.load(content)
