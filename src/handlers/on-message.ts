@@ -10,6 +10,7 @@ import {
   onZhiHuFollower,
   talkTBP,
   onWeather,
+  onVersion,
 } from '../plugins'
 
 const FUNCTIONS = [
@@ -17,6 +18,7 @@ const FUNCTIONS = [
   onRandomSCP,
   onZhiHuFollower,
   onWeather,
+  onVersion,
 ]
 
 async function isRoomMentionMe (message: Message) : Promise<string|null> {
