@@ -4,7 +4,7 @@ import {
   Wechaty,
 } from 'wechaty'
 
-import { onSCP, onRandomSCP, onZhiHuFollower } from '../plugins'
+import { onSCP, onRandomSCP, onZhiHuFollower, talkTBP } from '../plugins'
 
 const FUNCTIONS = [
   onSCP,
@@ -40,18 +40,23 @@ export default async function onMessage (
 
   const mentionMe = await isRoomMentionMe(message)
 
-  if (room && mentionMe) {
+  if ((room && mentionMe) || contact) {
     for (const func of FUNCTIONS) {
       const reply = await func(text)
       if (reply) {
-        await room.say(reply)
+        if (room) {
+          await room.say(reply)
+        } else if (contact) {
+          await contact.say(reply)
+        }
         return
       }
     }
-    await room.say('我什么都不会呢')
-  }
-
-  if (!room && contact) {
-    await contact.say('我什么都不会呢')
+    const defaultReply = await talkTBP(text) || '我什么都不会呢'
+    if (room) {
+      await room.say(defaultReply)
+    } else if (contact) {
+      await contact.say(defaultReply)
+    }
   }
 }

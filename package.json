@@ -39,6 +39,7 @@
     "finis": "^0.4.3",
     "node-fetch": "^2.6.0",
     "read-pkg-up": "^7.0.1",
+    "tencentcloud-sdk-nodejs": "^3.0.108",
     "wechaty": "^0.29.8"
   },
   "devDependencies": {
