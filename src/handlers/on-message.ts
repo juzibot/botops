@@ -4,7 +4,7 @@ import {
   Wechaty,
 }             from 'wechaty'
 
-import { getSCP } from '../plugins'
+import { getSCP, getZhiHuFollower } from '../plugins'
 
 export default async function onMessage (
   this    : Wechaty,
@@ -17,6 +17,13 @@ export default async function onMessage (
   const mentions = await message.mention()
   if (room && mentions) {
     for (const mention of mentions) {
+
+      if ((text.includes('知乎') || text.includes('知呼')) && text.includes('粉丝')) {
+        const ret = await getZhiHuFollower()
+        await room.say(ret)
+        return
+      }
+
       const m = text.match(/SCP(\d+)/i)
       if (m) {
         const scp = await getSCP(m[1])
