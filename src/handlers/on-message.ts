@@ -16,7 +16,7 @@ async function isRoomMentionMe (message: Message) : Promise<string|null> {
   const room = message.room()
   const text = message.text()
   if (room && text.match(/^pda\s/i)) {
-    return text.substr(0, 4)
+    return text.substr(4)
   }
   if (room && await message.mentionSelf()) {
     return message.mentionText()
@@ -36,7 +36,7 @@ export default async function onMessage (
   const mentionMe = await isRoomMentionMe(message)
   log.info('onMessage', 'mention %s', mentionMe)
   if (mentionMe) {
-    text = text.replace(mentionMe, '').trim()
+    text = mentionMe.trim()
     log.info('onMessage', 'mentioned text %s', text)
   } else {
     log.info('onMessage', 'non-mentioned text %s', text)
