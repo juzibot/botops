@@ -4,6 +4,7 @@ import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 import { getCode } from './read-city'
 import cron from 'node-cron'
+import { log } from '../../config'
 
 const HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -56,22 +57,22 @@ export async function onWeather (text: string): Promise<null|string> {
 // # * * * * * *
 export const CRON_CONFIG: string[][] = [
   [
-    '0 0 9 * * *',
+    '0 22 * * *',
     'botops1',
     '北京市海淀区',
   ],
   [
-    '0 0 9 * * *',
+    '0 22 * * *',
     'botops1',
     '上海市市辖区',
   ],
   [
-    '0 0 9 * * *',
+    '0 22 * * *',
     'botops2',
     '北京市海淀区',
   ],
   [
-    '0 0 9 * * *',
+    '0 22 * * *',
     'botops2',
     '河北省保定市涿州市',
   ],
@@ -82,14 +83,17 @@ export async function cronWeather (bot: Wechaty) {
     cron.schedule(cronConfig[0], async () => {
       const key = cronConfig[1]
       const city = cronConfig[2]
+      log.info('plugins/weather', 'start config %s %s', key, city)
       const room = await bot.Room.find({ topic: key })
+      const contact = await bot.Contact.find({ name: key })
       if (room) {
+        log.info('plugins/weather', 'start config found room %s %s', key, city)
         await room.say(await getWeather(city))
+      } else if (contact) {
+        log.info('plugins/weather', 'start config found contact %s %s', key, city)
+        await contact.say(await getWeather(city))
       } else {
-        const contact = await bot.Contact.find({ name: key })
-        if (contact) {
-          await contact.say(await getWeather(city))
-        }
+        log.warn('plugins/weather', 'start config found nothing %s %s', key, city)
       }
     })
   }
