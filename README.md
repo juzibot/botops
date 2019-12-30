@@ -14,13 +14,16 @@ Using Bot to automate everything!
 - version: 获取版本号
 - zhihu-follower: 查询知乎粉丝数
 
-## AUTHOR
+## Author
 
 - [Qinghua Duan (段清华)](http://linkedin.com/in/qhduan) \<mail@qhduan.com\>
+
+## Contributor
+
 - [Huan LI (李卓桓)](http://linkedin.com/in/zixia) \<zixia@zixia.net\>
 
-## COPYRIGHT & LICENSE
+## Copyright & License
 
-- Code & Docs © 2018-2020 QHDuan \<mail@qhduan.com\> Huan LI \<zixia@zixia.net\> 
+- Code & Docs © 2018-2020 QHDuan \<mail@qhduan.com\>
 - Code released under the Apache-2.0 License
 - Docs released under Creative Commons
