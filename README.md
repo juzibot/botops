@@ -1,5 +1,7 @@
 # BotOps
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/juzibot/botops.svg)](https://greenkeeper.io/)
+
 Using Bot to automate everything!
 
 ## Plugins
@@ -14,14 +16,11 @@ Using Bot to automate everything!
 
 ## AUTHOR
 
-[Huan LI (李卓桓)](http://linkedin.com/in/zixia) \<zixia@zixia.net\>
-
-[![Profile of Huan LI (李卓桓) on StackOverflow](https://stackexchange.com/users/flair/265499.png)](https://stackexchange.com/users/265499) [![Greenkeeper badge](https://badges.greenkeeper.io/juzibot/botops.svg)](https://greenkeeper.io/)
-
-[Qinghua Duan (段清华)](http://linkedin.com/in/qhduan) \<mail@qhduan.com\>
+- [Qinghua Duan (段清华)](http://linkedin.com/in/qhduan) \<mail@qhduan.com\>
+- [Huan LI (李卓桓)](http://linkedin.com/in/zixia) \<zixia@zixia.net\>
 
 ## COPYRIGHT & LICENSE
 
-- Code & Docs © 2018-2020 Huan LI \<zixia@zixia.net\> QHDuan \<mail@qhduan.com\>
+- Code & Docs © 2018-2020 QHDuan \<mail@qhduan.com\> Huan LI \<zixia@zixia.net\> 
 - Code released under the Apache-2.0 License
 - Docs released under Creative Commons
