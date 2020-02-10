@@ -44,7 +44,7 @@
     "read-pkg-up": "^7.0.1",
     "tencentcloud-sdk-nodejs": "^3.0.108",
     "wechaty": "^0.30.22",
-    "wechaty-puppet-padplus": "^0.3.24"
+    "wechaty-puppet-padplus": "^0.4.1"
   },
   "devDependencies": {
     "@chatie/eslint-config": "^0.8.1",
