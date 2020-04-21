@@ -42,7 +42,7 @@
     "node-cron": "^2.0.3",
     "node-fetch": "^2.6.0",
     "read-pkg-up": "^7.0.1",
-    "tencentcloud-sdk-nodejs": "^3.0.108",
+    "tencentcloud-sdk-nodejs": "^3.0.156",
     "wechaty": "^0.30.22",
     "wechaty-puppet-padplus": "^0.3.24"
   },
